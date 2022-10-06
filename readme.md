@@ -1,7 +1,13 @@
-# TS SDK Template
+# Color utils
 
-## TODO
+Convert color format.
 
-- [ ] run `pnpm init --yes`
-- [ ] change package metadata
-- [ ] rewrite this docs.
+support:
+
+- hex
+- rgb/rgba
+- hsl/hsla
+
+## Reference
+
+- https://www.wikiwand.com/en/HSL_and_HSV#/Color_conversion_formulae

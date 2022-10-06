@@ -1,7 +1,6 @@
 {
-  "name": "tpl-ts-sdk",
+  "name": "color-utils",
   "version": "0.0.0",
-  "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
@@ -35,5 +34,14 @@
   },
   "dependencies": {
     "@0x-jerry/utils": "^1.9.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0x-jerry/color-utils.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/0x-jerry/color-utils/issues"
+  },
+  "homepage": "https://github.com/0x-jerry/color-utils#readme"
 }
