@@ -2,6 +2,8 @@ import { parseHex } from './hex'
 import { praseHSL } from './hls'
 import { parseRGB } from './rgb'
 
+export { parseHex, parseRGB, praseHSL }
+
 export function parseColor(color: string) {
   if (color.startsWith('#')) {
     return parseHex(color)

@@ -1,4 +1,4 @@
-import { parseColor } from './parser'
+import { parseColor } from './index'
 
 describe('parse color', () => {
   it('should parse rgba format', () => {
@@ -92,10 +92,10 @@ describe('parse color', () => {
       a: 0.4,
     })
 
-    expect(parseColor('hsla(105 24% 70% / 40%)')).eql({
+    expect(parseColor('hsla(105 24% 75% / 40%)')).eql({
       h: 105,
       s: 0.24,
-      l: 0.7,
+      l: 0.75,
       a: 0.4,
     })
 

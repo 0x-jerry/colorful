@@ -58,6 +58,12 @@ function parseHue(s = '', defaultValue = 0) {
       break
   }
 
+  v = normalizeHue(v)
+
+  return toFixed(v, 2)
+}
+
+export function normalizeHue(v: number) {
   while (v < 0) {
     v += 360
   }
@@ -66,5 +72,5 @@ function parseHue(s = '', defaultValue = 0) {
     v -= 360
   }
 
-  return toFixed(v, 2)
+  return v
 }
