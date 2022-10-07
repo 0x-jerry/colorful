@@ -1,4 +1,4 @@
-import { parseRGB } from './parse'
+import { parseColor, parseRGB } from './parse'
 
 describe('parse rgba', () => {
   it('should parse rgba format', () => {
@@ -50,5 +50,45 @@ describe('parse rgba', () => {
   it('should parse failed', () => {
     expect(parseRGB('rgba(1 2 3 , .1)')).eql(null)
     expect(parseRGB('rgba(1, 2, 3 / .1)')).eql(null)
+  })
+})
+
+describe('parse hex', () => {
+  it('should parse #333 or #3334', () => {
+    expect(parseColor('#333')).eql({
+      r: 0x33 / 0xff,
+      g: 0x33 / 0xff,
+      b: 0x33 / 0xff,
+      a: 1,
+    })
+
+    expect(parseColor('#3334')).eql({
+      r: 0x33 / 0xff,
+      g: 0x33 / 0xff,
+      b: 0x33 / 0xff,
+      a: 0x44 / 0xff,
+    })
+  })
+
+  it('should parse #eeffee or #eeffee02', () => {
+    expect(parseColor('#eeffee')).eql({
+      r: 0xee / 0xff,
+      g: 0xff / 0xff,
+      b: 0xee / 0xff,
+      a: 1,
+    })
+
+    expect(parseColor('#eeffee02')).eql({
+      r: 0xee / 0xff,
+      g: 0xff / 0xff,
+      b: 0xee / 0xff,
+      a: 0x02 / 0xff,
+    })
+  })
+
+  it('should return null', () => {
+    expect(parseColor('#eeffee1')).eql(null)
+    expect(parseColor('#eeffe')).eql(null)
+    expect(parseColor('#ee')).eql(null)
   })
 })

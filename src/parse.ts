@@ -89,4 +89,41 @@ function parseAValue(v: string, defaultValue = 0xff) {
   return toFixed(clamp(vv, 0, 1) * 0xff, 2)
 }
 
-export function parseColor(color: string) {}
+export function parseColor(color: string) {
+  if (color.startsWith('#')) {
+    return parseHex(color)
+  }
+
+  return null
+}
+
+const hexToNumber = (v: string) => parseInt(v, 16) || 0
+
+function parseHex(color: string): RGB | null {
+  color = color.slice(1)
+  const len = color.length
+
+  const parse = (v: string) => hexToNumber(v) / 0xff
+
+  if (len === 3 || len === 4) {
+    return {
+      r: parse(color[0].repeat(2)),
+      g: parse(color[1].repeat(2)),
+      b: parse(color[2].repeat(2)),
+      a: color[3] ? parse(color[3].repeat(2)) : 1,
+    }
+  }
+
+  if (len === 6 || len === 8) {
+    const a = color.slice(6, 8)
+
+    return {
+      r: parse(color.slice(0, 2)),
+      g: parse(color.slice(2, 4)),
+      b: parse(color.slice(4, 6)),
+      a: a ? parse(a) : 1,
+    }
+  }
+
+  return null
+}
