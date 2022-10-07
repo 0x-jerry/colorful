@@ -11,7 +11,7 @@ const rgbaReg =
  * https://regexr.com/6vil1
  */
 const rgbaLevel4Reg =
-  /^rgba?\(\s*(?<r>\d+%?)\s+(?<g>\d+%?)\s+(?<b>\d+%?)\s*(\/\s*(?<a>[.\d]+%?))?\)$/
+  /^(rgba?)\(\s*(?<r>\d+%?)\s+(?<g>\d+%?)\s+(?<b>\d+%?)\s*(\/\s*(?<a>[.\d]+%?))?\)$/
 
 /**
  *
@@ -19,7 +19,7 @@ const rgbaLevel4Reg =
  * @param color
  * @returns
  */
-export function parseRGBA(color: string): RGB | null {
+export function parseRGB(color: string): RGB | null {
   color = color.trim()
 
   const matched = rgbaReg.exec(color) || rgbaLevel4Reg.exec(color)
@@ -46,7 +46,7 @@ export function parseRGBA(color: string): RGB | null {
  *
  * @param color
  */
-export function praseHSLA(color: string | HSL) {}
+export function praseHSL(color: string | HSL) {}
 
 export function praseColor(color: Color) {}
 
@@ -88,3 +88,5 @@ function parseAValue(v: string, defaultValue = 0xff) {
 
   return toFixed(clamp(vv, 0, 1) * 0xff, 2)
 }
+
+export function parseColor(color: string) {}
