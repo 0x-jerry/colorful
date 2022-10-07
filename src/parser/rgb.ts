@@ -1,5 +1,6 @@
 import { clamp } from '@0x-jerry/utils'
 import type { RGB } from '../type'
+import { round } from '../utils'
 import { parsePercentageValue } from './utils'
 
 const rgbaReg =
@@ -39,7 +40,7 @@ export function parseRGB(color: string): RGB | null {
  */
 function parseRGBValue(v: string = '', defaultValue = 0) {
   if (v.endsWith('%')) {
-    return parseInt(v) / 100
+    return round((parseInt(v) / 100) * 0xff, 2)
   }
 
   const n = +v
@@ -48,5 +49,5 @@ function parseRGBValue(v: string = '', defaultValue = 0) {
     return defaultValue
   }
 
-  return clamp(n / 0xff, 0, 1)
+  return round(clamp(n, 0, 0xff), 2)
 }

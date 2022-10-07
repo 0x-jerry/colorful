@@ -3,77 +3,77 @@ import { parseColor } from './index'
 describe('parse color', () => {
   it('should parse rgba format', () => {
     expect(parseColor('rgba(1,2,3, .1)')).eql({
-      r: 1 / 0xff,
-      g: 2 / 0xff,
-      b: 3 / 0xff,
+      r: 1,
+      g: 2,
+      b: 3,
       a: 0.1,
     })
 
     expect(parseColor('rgb(1% , 2%, 3%, 10%)')).eql({
-      r: 0.01,
-      g: 0.02,
-      b: 0.03,
+      r: 2.55,
+      g: 5.1,
+      b: 7.65,
       a: 0.1,
     })
 
     expect(parseColor('rgba(1 2 3% / .01)')).eql({
-      r: 1 / 0xff,
-      g: 2 / 0xff,
-      b: 3 / 100,
+      r: 1,
+      g: 2,
+      b: 7.65,
       a: 0.01,
     })
   })
 
   it('should parse rgb format', () => {
     expect(parseColor('rgb(1,2,3)')).eql({
-      r: 1 / 0xff,
-      g: 2 / 0xff,
-      b: 3 / 0xff,
+      r: 1,
+      g: 2,
+      b: 3,
       a: 1,
     })
 
     expect(parseColor('rgb(10% , 60%, 3%)')).eql({
-      r: 0.1,
-      g: 0.6,
-      b: 0.03,
+      r: 25.5,
+      g: 153,
+      b: 7.65,
       a: 1,
     })
 
     expect(parseColor('rgba(1 2 3%)')).eql({
-      r: 1 / 0xff,
-      g: 2 / 0xff,
-      b: 0.03,
+      r: 1,
+      g: 2,
+      b: 7.65,
       a: 1,
     })
   })
 
   it('should parse hex format', () => {
     expect(parseColor('#333')).eql({
-      r: 0x33 / 0xff,
-      g: 0x33 / 0xff,
-      b: 0x33 / 0xff,
+      r: 0x33,
+      g: 0x33,
+      b: 0x33,
       a: 1,
     })
 
     expect(parseColor('#3334')).eql({
-      r: 0x33 / 0xff,
-      g: 0x33 / 0xff,
-      b: 0x33 / 0xff,
-      a: 0x44 / 0xff,
+      r: 0x33,
+      g: 0x33,
+      b: 0x33,
+      a: 0x44,
     })
 
     expect(parseColor('#eeffee')).eql({
-      r: 0xee / 0xff,
-      g: 0xff / 0xff,
-      b: 0xee / 0xff,
+      r: 0xee,
+      g: 0xff,
+      b: 0xee,
       a: 1,
     })
 
     expect(parseColor('#eeffee02')).eql({
-      r: 0xee / 0xff,
-      g: 0xff / 0xff,
-      b: 0xee / 0xff,
-      a: 0x02 / 0xff,
+      r: 0xee,
+      g: 0xff,
+      b: 0xee,
+      a: 0x02,
     })
   })
 

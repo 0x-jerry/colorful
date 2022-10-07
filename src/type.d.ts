@@ -1,14 +1,14 @@
 export interface RGB {
   /**
-   * 0 - 1
+   * 0 - 255
    */
   r: number
   /**
-   * 0 - 1
+   * 0 - 255
    */
   g: number
   /**
-   * 0 - 1
+   * 0 - 255
    */
   b: number
   /**

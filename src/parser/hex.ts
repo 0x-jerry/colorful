@@ -6,7 +6,7 @@ export function parseHex(color: string): RGB | null {
   color = color.slice(1)
   const len = color.length
 
-  const parse = (v: string) => hexToNumber(v) / 0xff
+  const parse = (v: string) => hexToNumber(v)
 
   if (len === 3 || len === 4) {
     return {

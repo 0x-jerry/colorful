@@ -1,4 +1,5 @@
-import { praseHSL } from '../parser'
+import { parseRGB, praseHSL } from '../parser'
+import { hslToRgb } from './hsl'
 import { rgbToHsl } from './rbg'
 
 const pair = {
@@ -37,15 +38,52 @@ const pair = {
     '(300,100%,25%)',
     '(180,100%,25%)',
     '(240,100%,25%)',
-  ],
+  ].map((n) => `hsl${n}`),
+  rgb: [
+    '(0,0,0)',
+    '(255,255,255)',
+    '(255,0,0)',
+    '(0,255,0)',
+    '(0,0,255)',
+    '(255,255,0)',
+    '(0,255,255)',
+    '(255,0,255)',
+    '(191,191,191)',
+    '(128,128,128)',
+    '(128,0,0)',
+    '(128,128,0)',
+    '(0,128,0)',
+    '(128,0,128)',
+    '(0,128,128)',
+    '(0,0,128)',
+  ].map((n) => `rgb${n}`),
 }
 
 describe('color convertor', () => {
   it('should convert rgb to hsl', () => {
-    pair.hex.forEach((color, idx) => {
-      const hslColor = 'hsl' + pair.hsl[idx]
+    for (let idx = 0; idx < pair.hex.length; idx++) {
+      const hex = pair.hex[idx]
+      const rgb = pair.rgb[idx]
+      const hsl = pair.hsl[idx]
 
-      expect(rgbToHsl(color), `${color} not match ${hslColor}`).eql(praseHSL(hslColor))
-    })
+      expect(rgbToHsl(hex), `${hex} not match ${hsl}`).eql(praseHSL(hsl))
+      expect(rgbToHsl(rgb), `${rgb} not match ${hsl}`).eql(praseHSL(hsl))
+    }
+  })
+
+  it('should convert hsl to rgb', () => {
+    for (let idx = 0; idx < pair.hex.length; idx++) {
+      const rgb = pair.rgb[idx]
+      const hsl = pair.hsl[idx]
+
+      const r = hslToRgb(hsl)!
+
+      // normalize
+      r.r = Math.round(r.r)
+      r.g = Math.round(r.g)
+      r.b = Math.round(r.b)
+
+      expect(r, `${hsl} not match ${rgb}`).eql(parseRGB(rgb))
+    }
   })
 })

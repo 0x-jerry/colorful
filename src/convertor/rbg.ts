@@ -8,10 +8,23 @@ function parse(color: RGB | string) {
   return is.string(color) ? parseRGB(color) || parseHex(color) : color
 }
 
+/**
+ * convert rgb or hex to hsl
+ *
+ * https://www.wikiwand.com/en/HSL_and_HSV#/From_RGB
+ *
+ * @param color
+ * @returns
+ */
 export function rgbToHsl(color: string | RGB): HSL | null {
   const cc = parse(color)
 
   if (!cc) return null
+
+  // normalize
+  cc.r /= 0xff
+  cc.g /= 0xff
+  cc.b /= 0xff
 
   const xMax = Math.max(cc.r, cc.g, cc.b)
   const xMin = Math.min(cc.r, cc.g, cc.b)
