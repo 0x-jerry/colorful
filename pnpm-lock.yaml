@@ -11,7 +11,7 @@ importers:
       tsup: ^6.2.3
       tsx: ^3.9.0
       typescript: ^4.8.4
-      vitest: ^0.23.4
+      vitest: ^0.24.0
       vitest-github-actions-reporter: ^0.8.3
     dependencies:
       '@0x-jerry/utils': 1.11.0
@@ -22,8 +22,8 @@ importers:
       tsup: 6.2.3_typescript@4.8.4
       tsx: 3.9.0
       typescript: 4.8.4
-      vitest: 0.23.4
-      vitest-github-actions-reporter: 0.8.3_vitest@0.23.4
+      vitest: 0.24.3
+      vitest-github-actions-reporter: 0.8.3_vitest@0.24.3
 
   docs:
     specifiers:
@@ -2444,14 +2444,14 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest-github-actions-reporter/0.8.3_vitest@0.23.4:
+  /vitest-github-actions-reporter/0.8.3_vitest@0.24.3:
     resolution: {integrity: sha512-3mpZil8jAiWGt+w5NWzrewcPnXlUiUujMmjeZ0zhcva7cNW6k8DyMIBiq3bRGkhEL1FoG1sHFUj8/ONXnhGvZQ==}
     engines: {node: '>=14'}
     peerDependencies:
       vitest: '>=0.16.0'
     dependencies:
       '@actions/core': 1.10.0
-      vitest: 0.23.4
+      vitest: 0.24.3
     dev: true
 
   /vitest/0.23.4:
