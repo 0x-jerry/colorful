@@ -1,4 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "testing.automaticallyOpenPeekView": "never"
+  "testing.automaticallyOpenPeekView": "never",
+  "unocss.root": "./docs"
 }
