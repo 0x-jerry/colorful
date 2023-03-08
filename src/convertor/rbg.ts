@@ -1,61 +1,52 @@
-import { is } from '@0x-jerry/utils'
-import { parseHex, parseRGB } from '../parser'
-import { normalizeHue } from '../parser/hls'
 import { HSL, RGB } from '../type'
 import { round } from '../utils'
 
-function parse(color: RGB | string) {
-  return is.string(color) ? parseRGB(color) || parseHex(color) : color
-}
-
 /**
- * convert rgb or hex to hsl
+ * convert hsl to rgb
  *
- * https://www.wikiwand.com/en/HSL_and_HSV#/From_RGB
+ * https://www.wikiwand.com/en/HSL_and_HSV#/To_RGB
  *
  * @param color
  * @returns
  */
-export function rgbToHsl(color: string | RGB): HSL | null {
-  const cc = parse(color)
+export function hslToRgb(color: HSL): RGB | null {
+  const cc = color
 
-  if (!cc) return null
+  const c = (1 - Math.abs(2 * cc.l - 1)) * cc.s
+  const h = cc.h / 60
+  const x = c * (1 - Math.abs((h % 2) - 1))
 
-  // normalize
-  cc.r /= 0xff
-  cc.g /= 0xff
-  cc.b /= 0xff
+  const [r, g, b] = getRGB()!
 
-  const xMax = Math.max(cc.r, cc.g, cc.b)
-  const xMin = Math.min(cc.r, cc.g, cc.b)
-  const v = xMax
-  const c = xMax - xMin
-  const l = (xMax + xMin) / 2
+  function getRGB() {
+    if (h < 1) {
+      return [c, x, 0]
+    } else if (h < 2) {
+      return [x, c, 0]
+    } else if (h < 3) {
+      return [0, c, x]
+    } else if (h < 4) {
+      return [0, x, c]
+    } else if (h < 5) {
+      return [x, 0, c]
+    } else if (h < 6) {
+      return [c, 0, x]
+    }
+  }
 
-  const hsl: HSL = {
-    h: 0,
-    s: 0,
-    l: round(l, 2),
+  const m = cc.l - c / 2
+
+  const rgb: RGB = {
+    r: r + m,
+    g: g + m,
+    b: b + m,
     a: cc.a,
   }
 
-  if (c === 0) {
-    hsl.h = 0
-  } else if (v === cc.r) {
-    hsl.h = ((cc.g - cc.b) / c) * 60
-  } else if (v === cc.g) {
-    hsl.h = (2 + (cc.b - cc.r) / c) * 60
-  } else if (v === cc.b) {
-    hsl.h = (4 + (cc.r - cc.g) / c) * 60
-  }
+  // normalize
+  rgb.r = round(rgb.r * 0xff, 2)
+  rgb.g = round(rgb.g * 0xff, 2)
+  rgb.b = round(rgb.b * 0xff, 2)
 
-  hsl.h = normalizeHue(hsl.h)
-
-  if (l === 0 || l === 1) {
-    hsl.s = 0
-  } else {
-    hsl.s = (v - l) / Math.min(l, 1 - l)
-  }
-
-  return hsl
+  return rgb
 }

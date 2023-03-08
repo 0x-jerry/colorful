@@ -1,3 +1,4 @@
+import { is } from '@0x-jerry/utils'
 import { RGB } from '../type'
 
 const hexToNumber = (v: string) => parseInt(v, 16) || 0
@@ -13,7 +14,7 @@ export function parseHex(color: string): RGB | null {
       r: parse(color[0].repeat(2)),
       g: parse(color[1].repeat(2)),
       b: parse(color[2].repeat(2)),
-      a: color[3] ? parse(color[3].repeat(2)) : 1,
+      a: !is.nullish(color[3]) ? parse(color[3].repeat(2)) : 1,
     }
   }
 

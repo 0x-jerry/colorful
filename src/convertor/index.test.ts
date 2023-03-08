@@ -1,6 +1,6 @@
-import { parseRGB, praseHSL } from '../parser'
-import { hslToRgb } from './hsl'
-import { rgbToHsl } from './rbg'
+import { parseHex, parseRGB, praseHSL } from '../parser'
+import { rgbToHsl } from './hsl'
+import { hslToRgb } from './rbg'
 
 const pair = {
   hex: [
@@ -66,8 +66,8 @@ describe('color convertor', () => {
       const rgb = pair.rgb[idx]
       const hsl = pair.hsl[idx]
 
-      expect(rgbToHsl(hex), `${hex} not match ${hsl}`).eql(praseHSL(hsl))
-      expect(rgbToHsl(rgb), `${rgb} not match ${hsl}`).eql(praseHSL(hsl))
+      expect(rgbToHsl(parseHex(hex)!), `${hex} not match ${hsl}`).eql(praseHSL(hsl))
+      expect(rgbToHsl(parseRGB(rgb)!), `${rgb} not match ${hsl}`).eql(praseHSL(hsl))
     }
   })
 
@@ -76,7 +76,7 @@ describe('color convertor', () => {
       const rgb = pair.rgb[idx]
       const hsl = pair.hsl[idx]
 
-      const r = hslToRgb(hsl)!
+      const r = hslToRgb(praseHSL(hsl)!)!
 
       // normalize
       r.r = Math.round(r.r)
