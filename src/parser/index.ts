@@ -1,5 +1,5 @@
 import { parseHex } from './hex'
-import { praseHSL } from './hls'
+import { praseHSL } from './hsl'
 import { parseRGB } from './rgb'
 
 export { parseHex, parseRGB, praseHSL }

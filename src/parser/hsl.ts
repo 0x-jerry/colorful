@@ -72,5 +72,5 @@ export function normalizeHue(v: number) {
     v -= 360
   }
 
-  return v
+  return Math.round(v)
 }

@@ -5,6 +5,7 @@ import { chooseFiles, getImageData } from './utils'
 import { rgbToHsl } from '../../src/convertor'
 import { parseHex } from '../../src/parser'
 import { RGB } from '../../src/type'
+import { round } from '../../src/utils'
 
 const colors = ref<Color[]>([])
 
@@ -31,13 +32,11 @@ async function choose() {
   img.value = URL.createObjectURL(file)
 }
 
-const { round } = Math
-
 function toHsl(hex: string) {
   const c = rgbToHsl(parseHex(hex)!)
 
   if (!c) return ''
-  const cc = [c.h, c.s, c.l, c.a].map((n) => round(n)).join(',')
+  const cc = [c.h, c.s * 100, c.l * 100].map(n => Math.round(n)).join(',')
 
   return `hsla(${cc})`
 }
