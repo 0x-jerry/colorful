@@ -1,28 +1,31 @@
 <script setup lang="ts">
 import { Color, mmcq } from 'mmcq.js'
-import { computed, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { chooseFiles, getImageData } from './utils'
-import { rgbToHsl } from '../../src/convertor'
-import { parseHex } from '../../src/parser'
-import { RGB } from '../../src/type'
-import { round } from '../../src/utils'
+import { Optional } from '@0x-jerry/utils'
+import { parseRGB } from '../../src/parser'
+import { rgbToHsl, hslToHwb } from '../../src/convertor'
 
 const colors = ref<Color[]>([])
 
 const img = ref<string>()
 
+const data = reactive({
+  bgColor: null as Optional<Color>,
+})
+
 async function extractColors(e: Event) {
   const el = e.target as HTMLImageElement
-  const data = getImageData(el, 0.1)
+  const imgData = getImageData(el, 0.1)
 
-  const cc = await mmcq(data, {
-    count: 6,
+  const cc = await mmcq(imgData, {
+    count: 8,
     algorithm: 8,
   })
 
-  console.log(cc)
-
   colors.value = cc
+
+  data.bgColor = colors.value.at(0)
 }
 
 async function choose() {
@@ -32,63 +35,81 @@ async function choose() {
   img.value = URL.createObjectURL(file)
 }
 
-function toHsl(hex: string) {
-  const c = rgbToHsl(parseHex(hex)!)
-
-  if (!c) return ''
-  const cc = [c.h, c.s * 100, c.l * 100].map(n => Math.round(n)).join(',')
-
-  return `hsla(${cc})`
-}
-
 const bgStyle = computed(() => {
-  const color = colors.value.at(0)
+  const color = data.bgColor
   if (!color) return {}
 
   return {
-    background: `rgba(${color.r}, ${color.g}, ${color.b}, 0.4)`,
+    background: `rgba(${color.r}, ${color.g}, ${color.b}, 1)`,
   }
 })
 
-const gradientStyle = computed(() => {
-  const color = colors.value.map((n) => n.hex).join(',')
+function toHSL(color: Color) {
+  const hsl = rgbToHsl(parseRGB(color.rgb)!)
 
-  return {
-    background: `linear-gradient(to right, ${color})`,
-  }
-})
+  return `hsl(${hsl.h}, ${hsl.s}, ${hsl.l})`
+}
+
+function toHWB(color: Color) {
+  const hsl = rgbToHsl(parseRGB(color.rgb)!)
+
+  const hwb = hslToHwb(hsl)
+
+  return `hwb(${hwb.h}, ${hwb.w}, ${hwb.b})`
+}
 </script>
 
 <template>
-  <div class="h-screen text-gray-7 font-mono" :style="bgStyle">
-    <div class="h-10 border-b border-gray-200 bg-white"></div>
-    <div class="text-xl text-center my-4">Color Utils</div>
+  <div class="h-screen text-gray-7 font-mono flex flex-col">
+    <div class="text-4xl text-center py-2xl text-shadow shadow-white">Color Utils</div>
 
-    <div class="px-10 flex gap-4">
-      <div class="img w-300px aspect-3/4 border border-gray-2 shadow-xl rounded-xl overflow-hidden cursor-pointer"
-        @click="choose">
-        <img v-if="img" :src="img" class="w-full h-full block object-contain" @load="extractColors" />
+    <div class="px-10 flex gap-lg">
+      <div
+        class="img w-300px aspect-3/4 border border-gray-2 shadow-xl rounded-xl overflow-hidden cursor-pointer"
+        @click="choose"
+      >
+        <img
+          v-if="img"
+          :src="img"
+          class="w-full h-full block object-contain"
+          @load="extractColors"
+        />
         <div v-else class="flex items-center justify-center h-full">
           <div>Click me to select image</div>
         </div>
       </div>
       <div class="colors flex flex-col flex-1 gap-4">
-        <div class="gradient w-full h-6 rounded-full" :style="gradientStyle"></div>
+        <!-- <div class="gradient w-full h-6 rounded-full" :style="gradientStyle"></div> -->
         <div class="flex flex-1 w-full text-xs">
           <div class="flex-1 flex flex-col gap-2 items-center" v-for="color in colors">
-            <div class="color w-10 flex-1 rounded-full border border-gray-2" :style="{ background: color.hex }"></div>
-            <div class="hex">
-              {{ color.hex }}
-            </div>
-            <div class="rgb">
-              {{ color.rgb }}
-            </div>
-            <div class="hsl">
-              {{ toHsl(color.hex) }}
+            <div
+              class="color w-10 flex-1 rounded-full flex items-center justify-center cursor-pointer shadow shadow-xl shadow-current hover:shadow-2xl transition transition-shadow"
+              @click="data.bgColor = color"
+              :style="{
+                color: color.hex,
+                background: color.hex,
+                writingMode: 'vertical-rl',
+              }"
+            >
+              <span class="text-white text-shadow text-xl">
+                {{ color.hex }}
+              </span>
             </div>
           </div>
         </div>
         <!--  -->
+      </div>
+    </div>
+    <div
+      class="flex-1 mt-lg text-2xl flex justify-center items-center"
+      :style="bgStyle"
+      v-if="data.bgColor"
+    >
+      <div class="flex flex-col gap-lg text-shadow shadow-white">
+        <div class="hex">HEX: {{ data.bgColor.hex }}</div>
+        <div class="rgb">RGB: {{ data.bgColor.rgb }}</div>
+        <div class="hsl">HSL: {{ toHSL(data.bgColor) }}</div>
+        <div class="hsl">HWB: {{ toHWB(data.bgColor) }}</div>
       </div>
     </div>
   </div>
