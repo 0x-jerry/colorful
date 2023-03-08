@@ -5,6 +5,7 @@ import { chooseFiles, getImageData } from './utils'
 import { Optional } from '@0x-jerry/utils'
 import { parseRGB } from '../../src/parser'
 import { rgbToHsl, hslToHwb } from '../../src/convertor'
+import VContrast from '../components/VContrast.vue'
 
 const colors = ref<Color[]>([])
 
@@ -83,7 +84,7 @@ function toHWB(color: Color) {
         <div class="flex flex-1 w-full text-xs">
           <div class="flex-1 flex flex-col gap-2 items-center" v-for="color in colors">
             <div
-              class="color w-10 flex-1 rounded-full flex items-center justify-center cursor-pointer shadow shadow-xl shadow-current hover:shadow-2xl transition transition-shadow"
+              class="color w-10 flex-1 rounded-full flex items-center justify-center cursor-pointer shadow shadow-current hover:shadow-lg transition transition-shadow"
               @click="data.bgColor = color"
               :style="{
                 color: color.hex,
@@ -91,9 +92,9 @@ function toHWB(color: Color) {
                 writingMode: 'vertical-rl',
               }"
             >
-              <span class="text-white text-shadow text-xl">
+              <VContrast :background="color" class="text-xl">
                 {{ color.hex.toUpperCase() }}
-              </span>
+              </VContrast>
             </div>
           </div>
         </div>
@@ -105,28 +106,12 @@ function toHWB(color: Color) {
       :style="bgStyle"
       v-if="data.bgColor"
     >
-      <div class="flex flex-col gap-lg text-shadow shadow-white">
+      <VContrast :background="data.bgColor" class="flex flex-col gap-lg text-shadow shadow-white">
         <div class="hex">HEX: {{ data.bgColor.hex.toUpperCase() }}</div>
         <div class="rgb">RGB: {{ data.bgColor.rgb }}</div>
         <div class="hsl">HSL: {{ toHSL(data.bgColor) }}</div>
         <div class="hsl">HWB: {{ toHWB(data.bgColor) }}</div>
-      </div>
+      </VContrast>
     </div>
   </div>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>

@@ -74,4 +74,4 @@ export interface HSV {
   a?: number
 }
 
-export type Color = string | RGB | HSL
+export type Color = RGB | HSL | HWB
