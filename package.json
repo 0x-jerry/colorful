@@ -13,6 +13,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "build": "tsup src/index.ts --format esm --dts --clean",
+    "build:docs": "pnpm run --filter docs build",
     "gen:colors": "tsx scripts/gen-named-colors.ts",
     "release": "x-release"
   },
