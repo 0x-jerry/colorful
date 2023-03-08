@@ -47,7 +47,7 @@ const bgStyle = computed(() => {
 function toHSL(color: Color) {
   const hsl = rgbToHsl(parseRGB(color.rgb)!)
 
-  return `hsl(${hsl.h}, ${hsl.s}, ${hsl.l})`
+  return `hsl(${hsl.h}, ${Math.round(hsl.s * 100)}%, ${Math.round(hsl.l * 100)}%)`
 }
 
 function toHWB(color: Color) {
@@ -55,7 +55,7 @@ function toHWB(color: Color) {
 
   const hwb = hslToHwb(hsl)
 
-  return `hwb(${hwb.h}, ${hwb.w}, ${hwb.b})`
+  return `hwb(${hwb.h}, ${Math.round(hwb.w * 100)}%, ${Math.round(hwb.b * 100)}%)`
 }
 </script>
 
@@ -92,7 +92,7 @@ function toHWB(color: Color) {
               }"
             >
               <span class="text-white text-shadow text-xl">
-                {{ color.hex }}
+                {{ color.hex.toUpperCase() }}
               </span>
             </div>
           </div>
@@ -106,7 +106,7 @@ function toHWB(color: Color) {
       v-if="data.bgColor"
     >
       <div class="flex flex-col gap-lg text-shadow shadow-white">
-        <div class="hex">HEX: {{ data.bgColor.hex }}</div>
+        <div class="hex">HEX: {{ data.bgColor.hex.toUpperCase() }}</div>
         <div class="rgb">RGB: {{ data.bgColor.rgb }}</div>
         <div class="hsl">HSL: {{ toHSL(data.bgColor) }}</div>
         <div class="hsl">HWB: {{ toHWB(data.bgColor) }}</div>

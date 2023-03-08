@@ -1,4 +1,5 @@
 import { HSL, HSV, HWB } from '../type'
+import { round } from '../utils'
 import { hslToHsv } from './hsv'
 
 /**
@@ -14,6 +15,9 @@ export function hsvToHwb(hsv: HSV): HWB {
     b: 1 - hsv.v,
     a: hsv.a,
   }
+
+  hwb.w = round(hwb.w, 2)
+  hwb.b = round(hwb.b, 2)
 
   return hwb
 }
