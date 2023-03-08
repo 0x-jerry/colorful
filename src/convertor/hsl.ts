@@ -10,7 +10,7 @@ import { normalizeHue } from '../parser/hls'
  * @param color
  * @returns
  */
-export function rgbToHsl(color: RGB): HSL | null {
+export function rgbToHsl(color: RGB): HSL {
   const cc = color
 
   // normalize

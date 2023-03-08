@@ -4,12 +4,12 @@ import { round } from '../utils'
 /**
  * convert hsl to rgb
  *
- * https://www.wikiwand.com/en/HSL_and_HSV#/To_RGB
+ * https://www.wikiwand.com/en/HSL_and_HSV#HSL_to_RGB
  *
  * @param color
  * @returns
  */
-export function hslToRgb(color: HSL): RGB | null {
+export function hslToRgb(color: HSL): RGB {
   const cc = color
 
   const c = (1 - Math.abs(2 * cc.l - 1)) * cc.s
