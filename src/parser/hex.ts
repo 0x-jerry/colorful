@@ -10,11 +10,12 @@ export function parseHex(color: string): RGB | null {
   const parse = (v: string) => hexToNumber(v)
 
   if (len === 3 || len === 4) {
+    const a = color.at(4)
     return {
       r: parse(color[0].repeat(2)),
       g: parse(color[1].repeat(2)),
       b: parse(color[2].repeat(2)),
-      a: !is.nullish(color[3]) ? parse(color[3].repeat(2)) : 1,
+      a: is.nullish(a) ? 1 : parse(a) / 0xff,
     }
   }
 
@@ -25,7 +26,7 @@ export function parseHex(color: string): RGB | null {
       r: parse(color.slice(0, 2)),
       g: parse(color.slice(2, 4)),
       b: parse(color.slice(4, 6)),
-      a: a ? parse(a) : 1,
+      a: a ? parse(a) / 0xff : 1,
     }
   }
 
