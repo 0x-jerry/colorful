@@ -1,3 +1,4 @@
+import { round } from '../utils'
 import { parseColor } from './index'
 
 describe('parse color', () => {
@@ -59,7 +60,7 @@ describe('parse color', () => {
       r: 0x33,
       g: 0x33,
       b: 0x33,
-      a: 0x44,
+      a: round(0x44 / 0xff, 2),
     })
 
     expect(parseColor('#eeffee')).eql({
@@ -73,7 +74,7 @@ describe('parse color', () => {
       r: 0xee,
       g: 0xff,
       b: 0xee,
-      a: 0x02,
+      a: round(0x02 / 0xff, 2),
     })
   })
 
