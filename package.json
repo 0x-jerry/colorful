@@ -1,5 +1,5 @@
 {
-  "name": "color-utils",
+  "name": "@0x-jerry/colorful",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -36,8 +36,7 @@
     "vitest": "^0.29.2"
   },
   "dependencies": {
-    "@0x-jerry/utils": "^1.14.0",
-    "magic-regexp": "^0.6.3"
+    "@0x-jerry/utils": "^1.14.0"
   },
   "repository": {
     "type": "git",
