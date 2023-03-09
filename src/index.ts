@@ -1,7 +1,5 @@
 import { Color, HSL, HWB, RGB } from './type'
 
-export * from './type'
-
 export * from './convertor'
 export * from './parser'
 export * from './contrast'
