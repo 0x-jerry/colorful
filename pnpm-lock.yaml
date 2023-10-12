@@ -4,7 +4,7 @@ importers:
 
   .:
     specifiers:
-      '@0x-jerry/utils': ^1.14.0
+      '@0x-jerry/utils': ^2.0.0
       '@0x-jerry/x-release': ^0.3.6
       '@types/node': ^18.14.6
       '@vitest/coverage-c8': ^0.29.2
@@ -13,7 +13,7 @@ importers:
       tsx: ^3.12.3
       vitest: ^0.29.2
     dependencies:
-      '@0x-jerry/utils': 1.14.0
+      '@0x-jerry/utils': 2.0.0
     devDependencies:
       '@0x-jerry/x-release': 0.3.6
       '@types/node': 18.14.6
@@ -50,11 +50,11 @@ packages:
     resolution: {integrity: sha512-aV1qnSbezqlm1M4z+ZjL62p3u5q21986c445KDwJH1zgIErBlefXLf3Tv/Cao8DzA5o2P5iGFpeP2JNjhFRbNQ==}
     dev: true
 
-  /@0x-jerry/utils/1.14.0:
-    resolution: {integrity: sha512-ybGFJpjiH0n6YFJTBDLxu3aePMuwE0A9mj0nFcuETWgmPph8UkVY+Rpap/3XNogjoo//7Bd+aRxyTbJYjeXCKw==}
+  /@0x-jerry/utils/2.0.0:
+    resolution: {integrity: sha512-mdpbw3E6kQ8E2PZVfPREdnlA7m3mEsycXYPHvPErrp5lZduqa9ATvqnvInAYUj3u8d9q2Gk2825besoICmyvpQ==}
     dependencies:
-      nanoid: 4.0.1
-      pako: 2.1.0
+      fflate: 0.8.1
+      nanoid: 4.0.2
     dev: false
 
   /@0x-jerry/x-release/0.3.6:
@@ -1596,6 +1596,10 @@ packages:
       reusify: 1.0.4
     dev: true
 
+  /fflate/0.8.1:
+    resolution: {integrity: sha512-/exOvEuc+/iaUm105QIiOt4LpBdMTWsXxqR0HDF35vx3fmaKzw7354gTilCh5rkzEt8WYyG//ku3h3nRmd7CHQ==}
+    dev: false
+
   /fill-range/7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
     engines: {node: '>=8'}
@@ -2048,8 +2052,8 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /nanoid/4.0.1:
-    resolution: {integrity: sha512-udKGtCCUafD3nQtJg9wBhRP3KMbPglUsgV5JVsXhvyBs/oefqb4sqMEhKBBgqZncYowu58p1prsZQBYvAj/Gww==}
+  /nanoid/4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
     dev: false
@@ -2147,10 +2151,6 @@ packages:
     dependencies:
       p-limit: 3.1.0
     dev: true
-
-  /pako/2.1.0:
-    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
-    dev: false
 
   /parse-node-version/1.0.1:
     resolution: {integrity: sha512-3YHlOa/JgH6Mnpr05jP9eDG254US9ek25LyIxZlDItp2iJtwyaXQb57lBYLdT3MowkUFYEV2XXNAYIPlESvJlA==}
