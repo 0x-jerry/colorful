@@ -27,7 +27,7 @@
     "dist"
   ],
   "devDependencies": {
-    "@0x-jerry/x-release": "^0.3.6",
+    "@0x-jerry/x-release": "^0.4.0",
     "@types/node": "^18.14.6",
     "@vitest/coverage-c8": "^0.29.2",
     "happy-dom": "^8.9.0",
